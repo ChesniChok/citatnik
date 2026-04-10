@@ -1,0 +1,8 @@
+
+
+fun main() {
+
+    Tokeniser("aboba")
+
+}
+
