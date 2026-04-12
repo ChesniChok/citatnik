@@ -27,23 +27,22 @@ class Parser(
 
 
 
-    fun MAIN() {
+    fun parse() {
 
-        findAuthor()
-        println(getAuthor())
+        while (findAuthor()) {
 
-        findQuote()
-        println(getQuote())
+            val author = getAuthor()
 
-        println("=== === === === ===")
+            content[author] = mutableListOf()
 
-        findQuote()
-        println(getQuote())
+            while (findQuote()) content[author]?.add(getQuote())
+
+        }
 
     }
 
 
-    val Content: MutableMap<String, String> = mutableMapOf()
+    val content: MutableMap<String, MutableList<String>> = mutableMapOf()
 
 
 
@@ -53,10 +52,18 @@ class Parser(
 
 
 
-    private fun findAuthor() {
-        while (curChar != '-') readChar()//ищем начало имени
+    private fun findAuthor(): Boolean {
+
+        while (curChar != '-') {
+            if (curChar == banChar) return false
+
+            readChar()
+        }
 
         readChar()//переходим к имени
+
+        return true
+
     }
 
     private fun getAuthor(): String {
@@ -75,17 +82,23 @@ class Parser(
 
     }
 
-    private fun findQuote() {
-        while (curChar != '\t') readChar()//пропускаем всё до начала цитаты
+    private fun findQuote(): Boolean {
+        while (curChar != '\t') {
+            if (curChar == ';') return false//если конец списка цитат у автора, то цитат больше нет
+
+            readChar()//пропускаем всё до начала цитаты
+        }
+
+        return true//цитата ещё есть
     }
 
     private fun getQuote(): String {
 
         val quote = StringBuilder()
 
-        //сейчас в curChar находится \t
-
         while (curChar != banChar) {//если кердык
+
+            //сейчас в curChar находится \t
 
             //читаем построчно
             while (curChar == '\t') {//если на новой строке табуляция — это продолжение цитаты

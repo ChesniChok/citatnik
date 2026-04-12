@@ -7,7 +7,20 @@ fun main() {
 
     val parser = Parser(readed)
 
-    parser.MAIN()
+    parser.parse()
+
+    parser.content.forEach { author ->
+
+        println("\t\t${author.key}")
+
+        author.value.forEach { quote ->
+            println(quote)
+            println()
+        }
+
+        println("=== === === === ===")
+
+    }
 
 }
 
