@@ -6,17 +6,8 @@ class Parser(
 
     private var curCharInd: Int = 0
 
-    public val curChar: Char
+    private val curChar: Char
         get() = input.getOrNull(curCharInd) ?: banChar
-
-    public val prevChar: Char
-        get() = input.getOrNull(curCharInd - 1) ?: banChar
-
-    private val nextChar: Char
-        get() = input.getOrNull(curCharInd + 1) ?: banChar
-
-    private val curToken: String
-        get() = "$prevChar$curChar"
 
     private val banChar = '\\'
 
@@ -31,11 +22,11 @@ class Parser(
 
         while (findAuthor()) {
 
-            val author = getAuthor()
+            val author = getAuthor().trim()
 
             content[author] = mutableListOf()
 
-            while (findQuote()) content[author]?.add(getQuote())
+            while (findQuote()) content[author]?.add(getQuote().trim())
 
         }
 
@@ -43,13 +34,6 @@ class Parser(
 
 
     val content: MutableMap<String, MutableList<String>> = mutableMapOf()
-
-
-
-
-
-
-
 
 
     private fun findAuthor(): Boolean {

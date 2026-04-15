@@ -9,16 +9,15 @@ fun main() {
 
     parser.parse()
 
-    parser.content.forEach { author ->
+    val citatnik = Citatnik(parser.content)
 
-        println("\t\t${author.key}")
+    //println(citatnik.getQuote(authorised = true))
 
-        author.value.forEach { quote ->
-            println(quote)
-            println()
-        }
+    //println(citatnik.getQuotes(amount = 3, offset = 315))
 
-        println("=== === === === ===")
+    citatnik.getQuotes(amount = citatnik.quotes.size, authorised = true).forEach {
+
+        println("$it\n===\n")
 
     }
 
