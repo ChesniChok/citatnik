@@ -52,7 +52,7 @@ class Parser(
 
     private fun getAuthor(): String {//читаем автора
 
-        var authName = StringBuilder()//сюда записываем
+        val authName = StringBuilder()//сюда записываем
 
         while (curChar != ':') {//пока не дочитали до метки конца
             authName.append(curChar)//записываем
