@@ -31,9 +31,9 @@ class Citatnik(
 
     fun getQuote(ind: Int? = null, authorised: Boolean = false): String {
 
-        val newInd = ind?: Random.nextInt(quotes.size)
+        val indToGet = ind?: Random.nextInt(quotes.size)
 
-        val quote = quotes.getOrNull(newInd) ?: "не найдена"
+        val quote = quotes.getOrNull(indToGet) ?: "не найдена"
 
         val author = if (authorised) " © ${authorOF(quote)}" else ""
 
@@ -45,10 +45,17 @@ class Citatnik(
 
         val quotes = mutableListOf<String>()
 
-        for (i in offset until amount+offset) {
+        if (randomised) {
 
-            quotes += if (randomised) getQuote(authorised = authorised)
-            else getQuote(authorised = authorised, ind = i)
+            for (i in 0..amount) {
+                quotes += getQuote(ind = i, authorised = authorised)
+            }
+
+        } else {
+
+            for (i in offset until amount+offset) {
+                quotes += getQuote(ind = i, authorised = authorised)
+            }
 
         }
 
