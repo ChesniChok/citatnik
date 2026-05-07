@@ -1,4 +1,4 @@
-
+package main.kotlin
 
 class Author(
     val name: String

@@ -1,4 +1,4 @@
-
+package main.kotlin
 
 class Parser(
     private val input: String
